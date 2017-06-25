@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/../platform/android/clientfoundation" />
+            <option value="$PROJECT_DIR$/../platform/android/sdkprotocols" />
             <option value="$PROJECT_DIR$/../platform/android/unityplayer" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/xgame" />

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../platform/android/clientfoundation/clientfoundation.iml" filepath="$PROJECT_DIR$/../platform/android/clientfoundation/clientfoundation.iml" />
       <module fileurl="file://$PROJECT_DIR$/proj.android-studio.iml" filepath="$PROJECT_DIR$/proj.android-studio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../platform/android/sdkprotocols/sdkprotocols.iml" filepath="$PROJECT_DIR$/../platform/android/sdkprotocols/sdkprotocols.iml" />
       <module fileurl="file://$PROJECT_DIR$/../platform/android/unityplayer/unityplayer.iml" filepath="$PROJECT_DIR$/../platform/android/unityplayer/unityplayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/xgame/xgame.iml" filepath="$PROJECT_DIR$/xgame/xgame.iml" />
     </modules>

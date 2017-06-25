@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hejia.android.clientfoundation" />
+    package="com.hejia.android.clientfoundation" >
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+</manifest>
