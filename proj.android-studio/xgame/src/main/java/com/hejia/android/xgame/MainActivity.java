@@ -7,8 +7,10 @@ package com.hejia.android.xgame;
 import android.app.AlertDialog;
 import android.os.Vibrator;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.hejia.android.clientfoundation.AppInfo;
 import com.hejia.android.xgame.unity.UnityPlayerActivity;
 import com.unity3d.player.UnityPlayer;
 
@@ -17,7 +19,8 @@ public class MainActivity extends UnityPlayerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        String sha1 = AppInfo.getCertificateSHA1Fingerprint(this);
+        Log.i("32131232131","eeqweqeqew");
     }
 
     public String ShowDialog(final String _title, final String _content) {

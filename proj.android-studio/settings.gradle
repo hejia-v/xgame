@@ -2,3 +2,6 @@ include ':xgame'
 
 include ':unityplayer'
 project(':unityplayer').projectDir = new File(settingsDir, '../platform/android/unityplayer')
+
+include ':clientfoundation'
+project(':clientfoundation').projectDir = new File(settingsDir, '../platform/android/clientfoundation')
