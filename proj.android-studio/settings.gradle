@@ -8,3 +8,6 @@ project(':clientfoundation').projectDir = new File(settingsDir, '../platform/and
 
 include ':sdkprotocols'
 project(':sdkprotocols').projectDir = new File(settingsDir, '../platform/android/sdkprotocols')
+
+include ':BaiduLBS'
+project(':BaiduLBS').projectDir = new File(settingsDir, '../platform/android/sdk/BaiduLBS')

@@ -62,4 +62,5 @@ dependencies {
     compile project(':unityplayer')
     compile project(':clientfoundation')
     compile project(':sdkprotocols')
+    compile project(':BaiduLBS')
 }
