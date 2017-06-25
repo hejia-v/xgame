@@ -54,8 +54,8 @@ http://blog.csdn.net/qq_27802721/article/details/52431376
 http://blog.csdn.net/onafioo/article/details/51841368
 http://blog.csdn.net/maomaoxiaohuo/article/details/51556749
 
- android studio
- http://blog.csdn.net/a772890398/article/details/50544172
+android studio
+http://blog.csdn.net/a772890398/article/details/50544172
 http://www.cnblogs.com/smyhvae/p/4392611.html
 https://stackoverflow.com/questions/26962948/how-to-update-imported-modules-with-code-modification-from-the-their-external-li
 http://blog.csdn.net/shineflowers/article/details/45042485
