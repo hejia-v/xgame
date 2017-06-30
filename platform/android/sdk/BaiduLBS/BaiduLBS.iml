@@ -118,6 +118,7 @@
     <orderEntry type="library" exported="" name="support-v4-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />
+    <orderEntry type="library" exported="" name="utilcode-1.7.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-25.4.0" level="project" />
@@ -125,5 +126,8 @@
     <orderEntry type="library" exported="" name="support-fragment-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-utils-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-compat-25.4.0" level="project" />
+    <orderEntry type="library" exported="" name="fastjson-1.1.58.android" level="project" />
+    <orderEntry type="module" module-name="clientfoundation" exported="" />
+    <orderEntry type="module" module-name="sdkprotocols" exported="" />
   </component>
 </module>

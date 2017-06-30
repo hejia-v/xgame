@@ -15,14 +15,14 @@ public class AndroidTest : MonoBehaviour
 
     public void MyShowDialog()
     {
-        // Android的Java接口  
+        // Android的Java接口
         AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
-        // 参数  
+        // 参数
         string[] mObject = new string[2];
         mObject[0] = "Jar4Android";
         mObject[1] = "Wow,Amazing!It's worked!";
-        // 调用方法  
+        // 调用方法
         string ret = jo.Call<string>("ShowDialog", mObject);
         setMsg(ref ret);
     }

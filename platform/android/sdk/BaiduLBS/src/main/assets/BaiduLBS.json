@@ -1,0 +1,16 @@
+{
+    "option": {
+        "locateMode": 1,
+        "coordinateSystem": 1,
+        "locateInterval": "3000",
+        "geofencelog": false,
+        "poi": false,
+        "describe": false,
+        "director": false
+    },
+    "autoNotify": {
+        "autonotify_distance": 100,
+        "autonotify_time": 60000,
+        "sensitivity": 1
+    }
+}

@@ -53,4 +53,6 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.4.0'
+    compile project(path: ':clientfoundation')
+    compile project(path: ':sdkprotocols')
 }

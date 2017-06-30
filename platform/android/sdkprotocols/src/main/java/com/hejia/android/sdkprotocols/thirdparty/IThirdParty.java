@@ -1,10 +1,20 @@
-package com.hejia.android.sdkprotocols.lifecycle;
+package com.hejia.android.sdkprotocols.thirdparty;
+
+/**
+ * Created by hejia on 2017/6/29.
+ */
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 
-public interface ILifecycle {
+import java.util.Hashtable;
+
+
+public interface IThirdParty {
+    public void setInfo(Hashtable<String, String> cpInfo);
+
+    public void setInfo(String cpInfo);
 
     public void onCreate(Application application);
 

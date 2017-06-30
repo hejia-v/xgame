@@ -1,9 +1,5 @@
 package com.hejia.android.clientfoundation;
 
-/**
- * Created by hejia on 2017/6/25.
- */
-
 import android.os.Handler;
 
 public class UIThread {

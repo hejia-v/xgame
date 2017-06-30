@@ -1,0 +1,12 @@
+{
+    "thirdparty": [{
+        "provider": 1,
+        "name": "BaiduLBS",
+        "className": "com.hejia.android.client.BaiduLBSWrapper",
+        "folder": "BaiduLBS",
+        "params": "",
+        "type": "kit",
+        "exit": ""
+    }],
+    "install": [1]
+}

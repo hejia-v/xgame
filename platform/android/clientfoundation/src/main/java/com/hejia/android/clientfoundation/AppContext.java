@@ -9,6 +9,12 @@ import android.os.Looper;
 public class AppContext extends ContextWrapper {
     private static AppContext sInstance;
 
+    private CharSequence mAppLabel;
+
+    private AppContext(Context context) {
+        super(context);
+    }
+
     public static synchronized void init(Context context) {
         if (sInstance == null) {
             try {
@@ -24,18 +30,12 @@ public class AppContext extends ContextWrapper {
         return sInstance;
     }
 
-    private AppContext(Context context) {
-        super(context);
-    }
-
     public static void checkThread() {
         if (Thread.currentThread() != Looper.getMainLooper().getThread()) {
             throw new IllegalAccessError(
                     "this method should be called in main thread");
         }
     }
-
-    private CharSequence mAppLabel;
 
     public CharSequence getAppLabel() {
         if (null == mAppLabel) {

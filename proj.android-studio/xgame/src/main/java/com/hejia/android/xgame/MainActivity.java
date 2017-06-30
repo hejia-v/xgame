@@ -4,7 +4,9 @@ package com.hejia.android.xgame;
  * Created by hejia on 2017/5/28.
  */
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.hejia.android.clientfoundation.AppInfo;
 import com.hejia.android.clientfoundation.UIThread;
+import com.hejia.android.sdkprotocols.thirdparty.ThirdPartyManager;
 import com.hejia.android.xgame.unity.UnityPlayerActivity;
 import com.unity3d.player.UnityPlayer;
 
@@ -21,9 +24,53 @@ public class MainActivity extends UnityPlayerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String sha1 = AppInfo.getCertificateSHA1Fingerprint(this);
-        Log.i("32131232131","eeqweqeqew");
+        Log.i("32131232131", "eeqweqeqew");
         UIThread.init();
+        ThirdPartyManager.onCreate(this);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ThirdPartyManager.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ThirdPartyManager.onResume(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ThirdPartyManager.onStop(this);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ThirdPartyManager.onRestart(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ThirdPartyManager.onNewIntent(this, intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ThirdPartyManager.onDestroy(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ThirdPartyManager.onActivityResult(this, requestCode, resultCode, data);
+    }
+
 
     public String ShowDialog(final String _title, final String _content) {
 
@@ -49,7 +96,6 @@ public class MainActivity extends UnityPlayerActivity {
             }
         });
     }
-
 
     //  定义一个手机振动的方法，在Unity中调用此方法
     public void SetVibrator() {
