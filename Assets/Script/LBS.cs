@@ -15,12 +15,21 @@ public class LBS : MonoBehaviour
 
     }
 
-    public void Startlocate()
+    public void StartLocate()
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBSWrapper");
-            jc.CallStatic("Startlocate");
+            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBS.BaiduLBSWrapper");
+            jc.CallStatic("StartLocate");
+        }
+    }
+
+    public void StopLocate()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBS.BaiduLBSWrapper");
+            jc.CallStatic("StopLocate");
         }
     }
 
@@ -28,7 +37,7 @@ public class LBS : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBSWrapper");
+            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBS.BaiduLBSWrapper");
             jc.CallStatic("ClearMark");
         }
     }
@@ -37,7 +46,7 @@ public class LBS : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBSWrapper");
+            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBS.BaiduLBSWrapper");
             jc.CallStatic("StartLocationAutoNotify");
         }
     }
@@ -46,7 +55,7 @@ public class LBS : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBSWrapper");
+            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBS.BaiduLBSWrapper");
             jc.CallStatic("StartIndoorLocation");
         }
     }
@@ -55,7 +64,7 @@ public class LBS : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBSWrapper");
+            AndroidJavaClass jc = new AndroidJavaClass("com.hejia.android.client.BaiduLBS.BaiduLBSWrapper");
             jc.CallStatic("IsHotWifi");
         }
     }

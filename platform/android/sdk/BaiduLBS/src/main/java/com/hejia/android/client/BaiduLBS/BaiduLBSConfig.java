@@ -1,4 +1,4 @@
-package com.hejia.android.client;
+package com.hejia.android.client.BaiduLBS;
 
 /**
  * Created by hejia on 2017/6/27.

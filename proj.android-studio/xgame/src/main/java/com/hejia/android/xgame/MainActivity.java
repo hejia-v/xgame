@@ -30,6 +30,12 @@ public class MainActivity extends UnityPlayerActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        ThirdPartyManager.onStart(this);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         ThirdPartyManager.onPause(this);

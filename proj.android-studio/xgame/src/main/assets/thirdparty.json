@@ -2,7 +2,7 @@
     "thirdparty": [{
         "provider": 1,
         "name": "BaiduLBS",
-        "className": "com.hejia.android.client.BaiduLBSWrapper",
+        "className": "com.hejia.android.client.BaiduLBS.BaiduLBSWrapper",
         "folder": "BaiduLBS",
         "params": "",
         "type": "kit",

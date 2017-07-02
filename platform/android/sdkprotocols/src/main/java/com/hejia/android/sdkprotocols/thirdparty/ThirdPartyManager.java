@@ -32,7 +32,7 @@ public class ThirdPartyManager {
             String thirdPartyClassName = p.getClassName();
             Log.i(TAG, "setup thirdparty provider class:" + thirdPartyClassName);
 
-            IThirdParty iThirdParty = createThirdParty(thirdPartyName);
+            IThirdParty iThirdParty = createThirdParty(thirdPartyClassName);
             Log.i(TAG, "setup thirdparty IThirdPart obj:" + iThirdParty);
 
             int provider = p.getProvider();
@@ -79,6 +79,17 @@ public class ThirdPartyManager {
             try {
                 IThirdParty listener = mThirdPartys.valueAt(i);
                 listener.onCreate(activity);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void onStart(Activity activity) {
+        for (int i = 0; i < mThirdPartys.size(); i++) {
+            try {
+                IThirdParty listener = mThirdPartys.valueAt(i);
+                listener.onStart(activity);
             } catch (Exception e) {
                 e.printStackTrace();
             }
