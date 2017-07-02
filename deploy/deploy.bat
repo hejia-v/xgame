@@ -11,7 +11,7 @@ set UNITY_METHOD_NAME=DeployTool.Build
 set UNITY_LOG_PATH=%cd%\unity_deploy_log.txt
 set ANDROID_PROJECT_PATH=%cd%\..\proj.android-studio
 
-cmd /c py3 deploy.py --android-deploy
+cmd /c py3 deploy.py --android-deploy -a
 
 REM if not %errorlevel%==0 ( goto fail)
 REM if not %errorlevel%==0 ( goto fail ) else ( goto success )
