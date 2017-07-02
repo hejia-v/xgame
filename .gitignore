@@ -51,3 +51,5 @@ native/xpy/xtest
 /platform/android/unityplayer
 /proj.android-studio/unityplayer
 /deploy/.vscode
+/.vscode
+*/.idea

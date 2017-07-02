@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd-HH-mm-ss", TimeZone.getTimeZone("UTC+8"))
+}
+
 android {
     signingConfigs {
         mykeystore {
@@ -29,11 +33,63 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            // 不显示Log
+            // buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            minifyEnabled true
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.mykeystore
+
+//            android.applicationVariants.all { variant ->
+//                variant.outputs.all { output ->
+//
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        // 这里修改apk名称
+//                        def fileName = outputFile.name.replace("xgame", "xxoo_${defaultConfig.versionName}.${defaultConfig.versionCode}_${releaseTime()}")
+//                        outputFileName = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
+//
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        // 输出apk名称为xgame_v1.0_2017-01-1-00-00-00_yyb.apk
+//                        // def fileName = "xgame_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//                        def fileName = "xgame_v${defaultConfig.versionName}_${releaseTime()}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//
+//                        tasks.getByName("assembleRelease") << {
+//                            copy {
+//                                from "build/outputs/apk/" + fileName
+//                                into projectDir.parent + "/apks"
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+            // TODO: api有更改, 需要等待新的解决方案
+            // https://developer.android.com/studio/preview/features/new-android-plugin-migration.html#variant_api
+            // https://stackoverflow.com/questions/44038998/rename-output-file-in-the-new-android-plugin-3-0-0-alpha1
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${variant.name}-${variant.versionName}.apk"
+                }
+            }
         }
         debug {
+            // 显示Log
+            // buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
             signingConfig signingConfigs.mykeystore
         }
     }

@@ -150,6 +150,9 @@ class ErrOutPutToLogger(object):
         self._traceback = None
 
     def write(self, s):
+        if not hasattr(sys, 'last_traceback'):
+            self._logger.log(logging.ERROR, s)
+            return
         if self._traceback is not sys.last_traceback:
             self._traceback = sys.last_traceback
             tb_list = traceback.format_exception(sys.last_type, sys.last_value, sys.last_traceback)
