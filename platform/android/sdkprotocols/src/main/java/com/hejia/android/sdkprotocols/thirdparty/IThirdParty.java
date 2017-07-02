@@ -12,8 +12,6 @@ import java.util.Hashtable;
 
 
 public interface IThirdParty {
-    public void setInfo(Hashtable<String, String> cpInfo);
-
     public void setInfo(String cpInfo);
 
     public void onCreate(Application application);

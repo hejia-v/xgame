@@ -25,10 +25,6 @@ public class BaiduLBSWrapper implements IThirdParty {
     private static Application mApplication;
     private static Activity mActivity;
 
-    @Override
-    public void setInfo(Hashtable<String, String> cpInfo) {
-
-    }
 
     @Override
     public void setInfo(String cpInfo) {
@@ -213,8 +209,12 @@ public class BaiduLBSWrapper implements IThirdParty {
         }
     };
 
-    public static void Startlocate() {
+    public static void StartLocate() {
         locationService.start();// 定位SDK
+    }
+
+    public static void StopLocate() {
+        locationService.stop();
     }
 
     public static void ClearMark() {

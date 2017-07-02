@@ -24,7 +24,6 @@ public class MainActivity extends UnityPlayerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String sha1 = AppInfo.getCertificateSHA1Fingerprint(this);
-        Log.i("32131232131", "eeqweqeqew");
         UIThread.init();
         ThirdPartyManager.onCreate(this);
     }
