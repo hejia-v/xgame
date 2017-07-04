@@ -18,8 +18,6 @@ import com.hejia.android.clientfoundation.JsonUtils;
 import com.hejia.android.clientfoundation.ResourcesManager;
 import com.hejia.android.sdkprotocols.thirdparty.IThirdParty;
 
-import java.util.Hashtable;
-
 public class BaiduLBSWrapper implements IThirdParty {
     private static LocationService locationService;
     private static Application mApplication;
