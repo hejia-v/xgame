@@ -29,6 +29,10 @@ android {
                 cppFlags ""
             }
         }
+        ndk {
+            // we use only armaebi for now
+            abiFilters "armeabi", "armeabi-v7a" //, "armeabi-v7a", "x86", "mips"
+        }
         signingConfig signingConfigs.mykeystore
     }
     buildTypes {

@@ -1,3 +1,11 @@
+# android 开发环境配置
+
+## 网络配置
+在hosts文件中添加如下条目
+```
+203.208.43.73   dl.google.com
+```
+
 # 参考
 
 **android studio gradle 打包**
