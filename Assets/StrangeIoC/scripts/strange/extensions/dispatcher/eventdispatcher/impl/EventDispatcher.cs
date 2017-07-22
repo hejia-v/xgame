@@ -103,11 +103,13 @@ namespace strange.extensions.dispatcher.eventdispatcher.impl
 							break;
 						}
 					}
-					catch (Exception ex) //If trigger throws, we still want to cleanup!
-					{
-						internalReleaseEvent(evt);
+#pragma warning disable 0168
+                    catch (Exception ex) //If trigger throws, we still want to cleanup!
+                    {
+                        internalReleaseEvent(evt);
 						throw;
 					}
+#pragma warning restore 0168
 					
 				}
 				if (triggerClientRemovals != null)
