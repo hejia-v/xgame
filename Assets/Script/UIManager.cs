@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         //Text msgBox = transform.Find("MessageBox").GetComponent<Text>();
         Image bgImg = transform.Find("JoystickBg").GetComponent<Image>();
         mJoystick = new Joystick(bgImg);
+
+        UEventManager.register("OnPointerDown", mJoystick.OnPointerDown, mJoystick);
+        UEventManager.register("OnDrag", mJoystick.OnDrag, mJoystick);
+        UEventManager.register("OnPointerUp", mJoystick.OnPointerUp, mJoystick);
     }
 
     void Update()
@@ -22,26 +26,26 @@ public class UIManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        UEventManager.OnBeginDrag(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        mJoystick.OnDrag(eventData);
+        UEventManager.OnDrag(eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        UEventManager.OnEndDrag(eventData);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        mJoystick.OnPointerDown(eventData);
+        UEventManager.OnPointerDown(eventData);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        mJoystick.OnPointerUp(eventData);
-
+        UEventManager.OnPointerUp(eventData);
     }
-
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+
 public class EventTriggerListener : UnityEngine.EventSystems.EventTrigger
 {
     public delegate void VoidDelegate(GameObject go);
