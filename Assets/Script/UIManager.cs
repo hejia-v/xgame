@@ -14,9 +14,9 @@ public class UIManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         Image bgImg = transform.Find("JoystickBg").GetComponent<Image>();
         mJoystick = new Joystick(bgImg);
 
-        UEventManager.register("OnPointerDown", mJoystick.OnPointerDown, mJoystick);
-        UEventManager.register("OnDrag", mJoystick.OnDrag, mJoystick);
-        UEventManager.register("OnPointerUp", mJoystick.OnPointerUp, mJoystick);
+        UEventManager.register(UEventManager.EventType.OnPointerDown, new UEventManager.BoolDelegate(mJoystick.OnPointerDown), mJoystick, true, UEventPriority.joystick);
+        UEventManager.register(UEventManager.EventType.OnDrag, new UEventManager.VoidDelegate(mJoystick.OnDrag), mJoystick, true, UEventPriority.joystick);
+        UEventManager.register(UEventManager.EventType.OnPointerUp, new UEventManager.VoidDelegate(mJoystick.OnPointerUp), mJoystick, true, UEventPriority.joystick);
     }
 
     void Update()

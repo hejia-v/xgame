@@ -40,7 +40,7 @@ public class Joystick
         mBgImg.sprite = sp;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public bool OnPointerDown(PointerEventData eventData)
     {
         if (mTweener != null)
         {
@@ -67,8 +67,12 @@ public class Joystick
                 float degrees = Mathf.Atan2(pos.y, pos.x) * 180 / Mathf.PI;
                 mThumbImg.rectTransform.eulerAngles = new Vector3(0, 0, degrees - 90);
                 mThumbImg.rectTransform.anchoredPosition = new Vector2(pos.x, pos.y);
+
+                return true;
             }
         }
+
+        return false;
     }
 
     public void OnDrag(PointerEventData eventData)

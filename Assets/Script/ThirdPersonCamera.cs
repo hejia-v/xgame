@@ -20,21 +20,17 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Start()
     {
-        UEventManager.register("OnPointerDown", this.OnPointerDown);
-        UEventManager.register("OnDrag", this.OnDrag);
-        UEventManager.register("OnPointerUp", this.OnPointerUp);
-
-        return;
-        //if (lockCursor)
-        //{
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //    Cursor.visible = false;
-        //}
+        UEventManager.register(UEventManager.EventType.OnPointerDown, new UEventManager.BoolDelegate(this.OnPointerDown), this, true, UEventPriority.third_person_camera);
+        UEventManager.register(UEventManager.EventType.OnDrag, new UEventManager.VoidDelegate(this.OnDrag), this, true, UEventPriority.third_person_camera);
+        UEventManager.register(UEventManager.EventType.OnPointerUp, new UEventManager.VoidDelegate(this.OnPointerUp), this, true, UEventPriority.third_person_camera);
     }
 
     void LateUpdate()
     {
-        return;
+    }
+
+    private void UpdateCamera()
+    {
         yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
         pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
         pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
@@ -43,21 +39,22 @@ public class ThirdPersonCamera : MonoBehaviour
         transform.eulerAngles = currentRotation;
 
         transform.position = target.position - transform.forward * dstFromTarget;
-
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public bool OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("111111");
+        return true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("22");
+        //float s = Input.GetAxis("Mouse X");
+        //Debug.Log("22    " + s);
+
+        UpdateCamera();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("3333");
     }
 }
