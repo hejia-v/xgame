@@ -14,9 +14,7 @@ public class UIManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         Image bgImg = transform.Find("JoystickBg").GetComponent<Image>();
         mJoystick = new Joystick(bgImg);
 
-        UEventManager.register(UEventManager.EventType.OnPointerDown, new UEventManager.BoolDelegate(mJoystick.OnPointerDown), mJoystick, true, UEventPriority.joystick);
-        UEventManager.register(UEventManager.EventType.OnDrag, new UEventManager.VoidDelegate(mJoystick.OnDrag), mJoystick, true, UEventPriority.joystick);
-        UEventManager.register(UEventManager.EventType.OnPointerUp, new UEventManager.VoidDelegate(mJoystick.OnPointerUp), mJoystick, true, UEventPriority.joystick);
+        TouchManager.addListener(mJoystick, true, TouchPriority.joystick);
     }
 
     void Update()
@@ -26,26 +24,26 @@ public class UIManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        UEventManager.OnBeginDrag(eventData);
+        TouchManager.OnBeginDrag(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        UEventManager.OnDrag(eventData);
+        TouchManager.OnDrag(eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        UEventManager.OnEndDrag(eventData);
+        TouchManager.OnEndDrag(eventData);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        UEventManager.OnPointerDown(eventData);
+        TouchManager.OnPointerDown(eventData);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        UEventManager.OnPointerUp(eventData);
+        TouchManager.OnPointerUp(eventData);
     }
 }

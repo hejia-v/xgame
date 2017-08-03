@@ -20,9 +20,9 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Start()
     {
-        UEventManager.register(UEventManager.EventType.OnPointerDown, new UEventManager.BoolDelegate(this.OnPointerDown), this, true, UEventPriority.third_person_camera);
-        UEventManager.register(UEventManager.EventType.OnDrag, new UEventManager.VoidDelegate(this.OnDrag), this, true, UEventPriority.third_person_camera);
-        UEventManager.register(UEventManager.EventType.OnPointerUp, new UEventManager.VoidDelegate(this.OnPointerUp), this, true, UEventPriority.third_person_camera);
+        TouchManager.addListener(this, true, TouchPriority.third_person_camera);
+
+        UpdateCamera();
     }
 
     void LateUpdate()

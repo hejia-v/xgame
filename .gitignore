@@ -54,5 +54,5 @@ native/xpy/xtest
 /.vscode
 */.idea
 *.iml
-/Assets/Test
-/Assets/Test.meta
+/Assets/Trash
+/Assets/Trash.meta

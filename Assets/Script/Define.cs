@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 
 
-public class UEventPriority
+public enum TouchPriority
 {
-    public static readonly int joystick = 10;
-    public static readonly int third_person_camera = 2;
+    third_person_camera,
+    joystick,
+}
+
+
+public enum EventType
+{
+    None,
 }
