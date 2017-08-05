@@ -12,4 +12,5 @@ public enum TouchPriority
 public enum EventType
 {
     None,
+    PlayerMove,
 }

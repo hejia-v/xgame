@@ -21,6 +21,7 @@ public class ThirdPersonCamera : MonoBehaviour
     void Start()
     {
         TouchManager.addListener(this, true, TouchPriority.third_person_camera);
+        EventManager.addListener(this, EventType.PlayerMove);
 
         UpdateCamera();
     }
@@ -56,5 +57,15 @@ public class ThirdPersonCamera : MonoBehaviour
 
     public void OnPointerUp(PointerEventData eventData)
     {
+    }
+
+    public bool OnEvent(EventType eventType, EventData eventData)
+    {
+        if (eventType == EventType.PlayerMove)
+        {
+            UpdateCamera();
+            return true;
+        }
+        return false;
     }
 }
