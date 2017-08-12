@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     void Update()
     {
-
+        InputManager.Update();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

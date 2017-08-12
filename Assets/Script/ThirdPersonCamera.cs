@@ -51,6 +51,7 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         //float s = Input.GetAxis("Mouse X");
         //Debug.Log("22    " + s);
+        //Debug.Log("-----------" );
 
         UpdateCamera();
     }

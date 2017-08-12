@@ -91,6 +91,8 @@ public class Joystick
 
             float degrees = Mathf.Atan2(deltaPos.y, deltaPos.x) * 180 / Mathf.PI;
             mThumbImg.rectTransform.eulerAngles = new Vector3(0, 0, degrees - 90);
+
+            OnJoystickMoved(deltaPos, degrees);
         }
     }
 
@@ -124,6 +126,13 @@ public class Joystick
                 });
     }
 
+    void OnJoystickMoved(Vector2 deltaPos, float degrees)
+    {
+        deltaPos = deltaPos / mMoveRadius;
+        Debug.Log(deltaPos);
+        InputManager.OnJoystickMoved(deltaPos, degrees);
+    }
+
     public float Horizontal()
     {
         if (mInputVector.x != 0)
@@ -132,7 +141,7 @@ public class Joystick
         }
         else
         {
-            return Input.GetAxis("Horizontal");
+            return Input.GetAxisRaw("Horizontal");
         }
     }
 
@@ -144,7 +153,7 @@ public class Joystick
         }
         else
         {
-            return Input.GetAxis("Vertical");
+            return Input.GetAxisRaw("Vertical");
         }
     }
 }
