@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace MoleMole
 {
-	public class Localization 
+    public class Localization
     {
         /* Language Types */
         public const string CHINESE = "Localization/Chinese.json";
@@ -28,8 +28,11 @@ namespace MoleMole
             set
             {
                 _language = value;
-                TextAsset asset = Resources.Load<TextAsset>(_language);
-                _languageNode = SimpleJSON.JSON.Parse(asset.text);
+                string text = ResourceManager.readTextFromFile(Application.dataPath + "/Resources/" + _language);
+                if (text != null)
+                {
+                    _languageNode = SimpleJSON.JSON.Parse(text);
+                }
             }
         }
 
@@ -44,5 +47,5 @@ namespace MoleMole
         {
             return _languageNode[id];
         }
-	}
+    }
 }

@@ -33,5 +33,7 @@ namespace MoleMole
         public static readonly UIType OptionMenu = new UIType("View/OptionMenuView");
         public static readonly UIType NextMenu = new UIType("View/NextMenuView");
         public static readonly UIType HighScore = new UIType("View/HighScoreView");
+
+        public static readonly UIType Main = new UIType("View/MainView");
     }
 }

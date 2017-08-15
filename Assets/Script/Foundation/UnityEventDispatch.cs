@@ -1,23 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 
 public class UnityEventDispatch : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerUpHandler, IPointerDownHandler
 {
-
-    private Joystick mJoystick;
-
-    void Start()
-    {
-        //Text msgBox = transform.Find("MessageBox").GetComponent<Text>();
-        Image bgImg = transform.Find("JoystickBg").GetComponent<Image>();
-        mJoystick = new Joystick(bgImg);
-
-        TouchManager.addListener(mJoystick, true, TouchPriority.joystick);
-    }
-
     void Update()
     {
         InputManager.Update();

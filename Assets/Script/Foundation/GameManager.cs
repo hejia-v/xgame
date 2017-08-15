@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using MoleMole;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
 
     void Start()
     {
+        Singleton<UIManager>.Create();
+        Singleton<ContextManager>.Create();
+        Singleton<Localization>.Create();
+        //UIManager uimgr = SingletonProvider<UIManager>.Instance;
+
+        Singleton<ContextManager>.Instance.Push(new MainViewContext());
     }
 
     void Update()
