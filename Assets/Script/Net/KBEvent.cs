@@ -1,16 +1,15 @@
 ﻿using KBEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEngine;
 
-public class KBEventData
+
+public interface IKBEvent
 {
 
 }
 
-public delegate void KBEventDelegate(KBEventData eventData);
+public delegate void KBEventDelegate(IKBEvent eventData);
 
 /*
 KBEngine插件层与Unity3D表现层通过事件来交互
@@ -27,7 +26,7 @@ public class KBEvent
     struct EventObj
     {
         public KBEventlistener listener;
-        public KBEventData eventData;
+        public IKBEvent eventData;
     };
 
     static Dictionary<NET, List<KBEventlistener>> events_out = new Dictionary<NET, List<KBEventlistener>>();
@@ -222,7 +221,7 @@ public class KBEvent
     通常由渲染表现层来注册, 例如：监听角色血量属性的变化， 如果UI层注册这个事件，
     事件触发后就可以根据事件所附带的当前血量值来改变角色头顶的血条值。
     */
-    public static void fireOut(NET eventType, KBEventData eventData)
+    public static void fireOut(NET eventType, IKBEvent eventData)
     {
         fire_(events_out, firedEvents_out, eventType, eventData);
     }
@@ -231,7 +230,7 @@ public class KBEvent
     渲染表现层抛出事件(in = render->kbe)
     通常由kbe插件层来注册， 例如：UI层点击登录， 此时需要触发一个事件给kbe插件层进行与服务端交互的处理。
     */
-    public static void fireIn(NET eventType, KBEventData eventData)
+    public static void fireIn(NET eventType, IKBEvent eventData)
     {
         fire_(events_in, firedEvents_in, eventType, eventData);
     }
@@ -239,13 +238,13 @@ public class KBEvent
     /*
     触发kbe插件和渲染表现层都能够收到的事件
     */
-    public static void fireAll(NET eventType, KBEventData eventData)
+    public static void fireAll(NET eventType, IKBEvent eventData)
     {
         fire_(events_in, firedEvents_in, eventType, eventData);
         fire_(events_out, firedEvents_out, eventType, eventData);
     }
 
-    private static void fire_(Dictionary<NET, List<KBEventlistener>> events, LinkedList<EventObj> firedEvents, NET eventType, KBEventData eventData)
+    private static void fire_(Dictionary<NET, List<KBEventlistener>> events, LinkedList<EventObj> firedEvents, NET eventType, IKBEvent eventData)
     {
         monitor_Enter(events);
         List<KBEventlistener> lst = null;
