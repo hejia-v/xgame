@@ -8,7 +8,9 @@ using System.Linq;
 
 public class World : MonoBehaviour 
 {
-	private UnityEngine.GameObject terrain = null;
+    public bool showReliveGUI = false;
+
+    private UnityEngine.GameObject terrain = null;
 	public UnityEngine.GameObject terrainPerfab;
 	
 	private UnityEngine.GameObject player = null;
@@ -98,7 +100,7 @@ public class World : MonoBehaviour
 	public void addSpaceGeometryMapping(string respath)
 	{
 		Debug.Log("loading scene(" + respath + ")...");
-		UI.inst.info("scene(" + respath + "), spaceID=" + KBEngineApp.app.spaceID);
+		//UI.inst.info("scene(" + respath + "), spaceID=" + KBEngineApp.app.spaceID);
 		if(terrain == null)
 			terrain = Instantiate(terrainPerfab) as UnityEngine.GameObject;
 
@@ -113,7 +115,7 @@ public class World : MonoBehaviour
 			return;
 		}
 
-		UI.inst.info("loading scene...(加载场景中...)");
+		//UI.inst.info("loading scene...(加载场景中...)");
 		Debug.Log("loading scene...");
 	}
 
@@ -272,9 +274,9 @@ public class World : MonoBehaviour
 			Debug.Log("player->set_state: " + v);
 			
 			if(((SByte)v) == 1)
-				UI.inst.showReliveGUI = true;
+				showReliveGUI = true;
 			else
-				UI.inst.showReliveGUI = false;
+				showReliveGUI = false;
 			
 			return;
 		}

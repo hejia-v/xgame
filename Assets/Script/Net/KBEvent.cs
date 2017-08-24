@@ -10,7 +10,7 @@ public class KBEventData
 
 }
 
-public delegate bool KBEventDelegate(KBEventData eventData);
+public delegate void KBEventDelegate(KBEventData eventData);
 
 /*
 KBEngine插件层与Unity3D表现层通过事件来交互

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 public class C2S_Login : KBEventData
 {
     public string username;
@@ -11,4 +13,10 @@ public class C2S_Login : KBEventData
         password = _password;
         datas = _datas;
     }
+}
+
+// TODO: class 改为 struct
+public class S2C_Kicked: KBEventData
+{
+    public UInt16 failedcode;
 }

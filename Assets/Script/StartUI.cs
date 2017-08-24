@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using KBEngine;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum MainUIStatus
@@ -17,8 +16,8 @@ public class StartUI : MonoBehaviour
 
     Text mVersionLabel;
     Text mMessageLabel;
-    Text mAccountText;
-    Text mPasswordText;
+    InputField mAccountText;
+    InputField mPasswordText;
 
     void Awake()
     {
@@ -32,8 +31,8 @@ public class StartUI : MonoBehaviour
 
         mVersionLabel = canvas.transform.Find("Version").GetComponent<Text>();
         mMessageLabel = canvas.transform.Find("Message").GetComponent<Text>();
-        mAccountText = canvas.transform.Find("Account/Text").GetComponent<Text>();
-        mPasswordText = canvas.transform.Find("Password/Text").GetComponent<Text>();
+        mAccountText = canvas.transform.Find("Account").GetComponent<InputField>();
+        mPasswordText = canvas.transform.Find("Password").GetComponent<InputField>();
 
         Button loginBtn = canvas.transform.Find("BtnLogin").GetComponent<Button>();
         loginBtn.onClick.AddListener(this.login);
@@ -60,6 +59,7 @@ public class StartUI : MonoBehaviour
         //KBEngine.Event.registerOut("onKicked", this, "onKicked");
         //KBEngine.Event.registerOut("onDisconnected", this, "onDisconnected");
         //KBEngine.Event.registerOut("onConnectionState", this, "onConnectionState");
+        KBEvent.registerOut(NET.onKicked, this, onKicked);
 
         // login
         //KBEngine.Event.registerOut("onCreateAccountResult", this, "onCreateAccountResult");
@@ -107,7 +107,6 @@ public class StartUI : MonoBehaviour
 
         C2S_Login eventData = new C2S_Login(sAccount, sPasswd, System.Text.Encoding.UTF8.GetBytes("kbengine_unity3d_demo"));
         KBEvent.fireIn(NET.login, eventData);
-        //KBEngine.Event.fireIn("login", stringAccount, stringPasswd, System.Text.Encoding.UTF8.GetBytes("kbengine_unity3d_demo"));
     }
 
     public void createAccount()
@@ -115,5 +114,13 @@ public class StartUI : MonoBehaviour
         info("connect to server...(连接到服务端...)");
 
         //KBEngine.Event.fireIn("createAccount", stringAccount, stringPasswd, System.Text.Encoding.UTF8.GetBytes("kbengine_unity3d_demo"));
+    }
+
+    public void onKicked(KBEventData eventData)
+    {
+        S2C_Kicked data = (S2C_Kicked)eventData;
+        err("kick, disconnect!, reason=" + KBEngineApp.app.serverErr(data.failedcode));
+        //SceneManager.LoadScene("login");
+        uiStatus = MainUIStatus.Login;
     }
 }
