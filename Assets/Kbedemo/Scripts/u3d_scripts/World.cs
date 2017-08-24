@@ -1,4 +1,4 @@
-﻿using KBEngine;
+using KBEngine;
 using UnityEngine;
 using System; 
 using System.IO;  

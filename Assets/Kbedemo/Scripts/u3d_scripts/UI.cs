@@ -1,4 +1,4 @@
-﻿using KBEngine;
+using KBEngine;
 using UnityEngine;
 using System; 
 using System.IO;  
@@ -35,36 +35,11 @@ public class UI : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		installEvents();
+		//installEvents();
 		Application.LoadLevel("login");
 	}
 
-	void installEvents()
-	{
-		// common
-		KBEngine.Event.registerOut("onKicked", this, "onKicked");
-		KBEngine.Event.registerOut("onDisconnected", this, "onDisconnected");
-		KBEngine.Event.registerOut("onConnectionState", this, "onConnectionState");
-		
-		// login
-		KBEngine.Event.registerOut("onCreateAccountResult", this, "onCreateAccountResult");
-		KBEngine.Event.registerOut("onLoginFailed", this, "onLoginFailed");
-		KBEngine.Event.registerOut("onVersionNotMatch", this, "onVersionNotMatch");
-		KBEngine.Event.registerOut("onScriptVersionNotMatch", this, "onScriptVersionNotMatch");
-		KBEngine.Event.registerOut("onLoginBaseappFailed", this, "onLoginBaseappFailed");
-		KBEngine.Event.registerOut("onLoginSuccessfully", this, "onLoginSuccessfully");
-		KBEngine.Event.registerOut("onReloginBaseappFailed", this, "onReloginBaseappFailed");
-		KBEngine.Event.registerOut("onReloginBaseappSuccessfully", this, "onReloginBaseappSuccessfully");
-		KBEngine.Event.registerOut("onLoginBaseapp", this, "onLoginBaseapp");
-		KBEngine.Event.registerOut("Loginapp_importClientMessages", this, "Loginapp_importClientMessages");
-		KBEngine.Event.registerOut("Baseapp_importClientMessages", this, "Baseapp_importClientMessages");
-		KBEngine.Event.registerOut("Baseapp_importClientEntityDef", this, "Baseapp_importClientEntityDef");
-		
-		// select-avatars(register by scripts)
-		KBEngine.Event.registerOut("onReqAvatarList", this, "onReqAvatarList");
-		KBEngine.Event.registerOut("onCreateAvatarResult", this, "onCreateAvatarResult");
-		KBEngine.Event.registerOut("onRemoveAvatar", this, "onRemoveAvatar");
-	}
+
 
 	void OnDestroy()
 	{

@@ -26,11 +26,6 @@ public struct KBS_CreateAccountResult : IKBEvent
     public byte[] datas;
 }
 
-public struct KBS_LoginFailed : IKBEvent
-{
-    public UInt16 failedcode;
-}
-
 public struct KBS_VersionMatch : IKBEvent
 {
     public string verInfo;

@@ -60,19 +60,11 @@ public class StartUI : MonoBehaviour
     void installEvents()
     {
         // common
-        //KBEngine.Event.registerOut("onKicked", this, "onKicked");
-        //KBEngine.Event.registerOut("onDisconnected", this, "onDisconnected");
-        //KBEngine.Event.registerOut("onConnectionState", this, "onConnectionState");
         KBEvent.registerOut(NET.onKicked, this, onKicked);
         KBEvent.registerOut(NET.onDisconnected, this, onDisconnected);
         KBEvent.registerOut(NET.onConnectionState, this, onConnectionState);
 
         // login
-        // KBEngine.Event.registerOut("onCreateAccountResult", this, "onCreateAccountResult");
-        // KBEngine.Event.registerOut("onLoginFailed", this, "onLoginFailed");
-        // KBEngine.Event.registerOut("onVersionNotMatch", this, "onVersionNotMatch");
-        // KBEngine.Event.registerOut("onScriptVersionNotMatch", this, "onScriptVersionNotMatch");
-        // KBEngine.Event.registerOut("onLoginBaseappFailed", this, "onLoginBaseappFailed");
         // KBEngine.Event.registerOut("onLoginSuccessfully", this, "onLoginSuccessfully");
         // KBEngine.Event.registerOut("onReloginBaseappFailed", this, "onReloginBaseappFailed");
         // KBEngine.Event.registerOut("onReloginBaseappSuccessfully", this, "onReloginBaseappSuccessfully");
@@ -200,7 +192,7 @@ public class StartUI : MonoBehaviour
 
     public void onLoginFailed(IKBEvent eventData)
     {
-        KBS_LoginFailed data = (KBS_LoginFailed)eventData;
+        KBS_Failed data = (KBS_Failed)eventData;
         if (data.failedcode == 20)
         {
             err("login is failed(登陆失败), err=" + KBEngineApp.app.serverErr(data.failedcode) + ", " + System.Text.Encoding.ASCII.GetString(KBEngineApp.app.serverdatas()));
