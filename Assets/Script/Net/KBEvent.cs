@@ -19,7 +19,7 @@ public class KBEvent
     struct KBEventlistener
     {
         public object obj;
-        public NET eventType;
+        public KET eventType;
         public KBEventDelegate funcDelegate;
     }
 
@@ -29,12 +29,12 @@ public class KBEvent
         public IKBEvent eventData;
     };
 
-    static Dictionary<NET, List<KBEventlistener>> events_out = new Dictionary<NET, List<KBEventlistener>>();
+    static Dictionary<KET, List<KBEventlistener>> events_out = new Dictionary<KET, List<KBEventlistener>>();
 
     static LinkedList<EventObj> firedEvents_out = new LinkedList<EventObj>();
     static LinkedList<EventObj> doingEvents_out = new LinkedList<EventObj>();
 
-    static Dictionary<NET, List<KBEventlistener>> events_in = new Dictionary<NET, List<KBEventlistener>>();
+    static Dictionary<KET, List<KBEventlistener>> events_in = new Dictionary<KET, List<KBEventlistener>>();
 
     static LinkedList<EventObj> firedEvents_in = new LinkedList<EventObj>();
     static LinkedList<EventObj> doingEvents_in = new LinkedList<EventObj>();
@@ -105,7 +105,7 @@ public class KBEvent
     通常由渲染表现层来注册, 例如：监听角色血量属性的变化， 如果UI层注册这个事件，
     事件触发后就可以根据事件所附带的当前血量值来改变角色头顶的血条值。
     */
-    public static bool registerOut(NET eventType, object obj, KBEventDelegate funcDelegate)
+    public static bool registerOut(KET eventType, object obj, KBEventDelegate funcDelegate)
     {
         return register(events_out, eventType, obj, funcDelegate);
     }
@@ -114,12 +114,12 @@ public class KBEvent
     注册监听由渲染表现层抛出的事件(in = render->kbe)
     通常由kbe插件层来注册， 例如：UI层点击登录， 此时需要触发一个事件给kbe插件层进行与服务端交互的处理。
     */
-    public static bool registerIn(NET eventType, object obj, KBEventDelegate funcDelegate)
+    public static bool registerIn(KET eventType, object obj, KBEventDelegate funcDelegate)
     {
         return register(events_in, eventType, obj, funcDelegate);
     }
 
-    private static bool register(Dictionary<NET, List<KBEventlistener>> events, NET eventType, object obj, KBEventDelegate funcDelegate)
+    private static bool register(Dictionary<KET, List<KBEventlistener>> events, KET eventType, object obj, KBEventDelegate funcDelegate)
     {
         deregister(events, eventType, obj, funcDelegate);
         List<KBEventlistener> lst = null;
@@ -149,17 +149,17 @@ public class KBEvent
         return true;
     }
 
-    public static bool deregisterOut(NET eventType, object obj, KBEventDelegate funcDelegate)
+    public static bool deregisterOut(KET eventType, object obj, KBEventDelegate funcDelegate)
     {
         return deregister(events_out, eventType, obj, funcDelegate);
     }
 
-    public static bool deregisterIn(NET eventType, object obj, KBEventDelegate funcDelegate)
+    public static bool deregisterIn(KET eventType, object obj, KBEventDelegate funcDelegate)
     {
         return deregister(events_in, eventType, obj, funcDelegate);
     }
 
-    private static bool deregister(Dictionary<NET, List<KBEventlistener>> events, NET eventType, object obj, KBEventDelegate funcDelegate)
+    private static bool deregister(Dictionary<KET, List<KBEventlistener>> events, KET eventType, object obj, KBEventDelegate funcDelegate)
     {
         monitor_Enter(events);
         List<KBEventlistener> lst = null;
@@ -194,7 +194,7 @@ public class KBEvent
         return deregister(events_in, obj);
     }
 
-    private static bool deregister(Dictionary<NET, List<KBEventlistener>> events, object obj)
+    private static bool deregister(Dictionary<KET, List<KBEventlistener>> events, object obj)
     {
         monitor_Enter(events);
 
@@ -221,7 +221,7 @@ public class KBEvent
     通常由渲染表现层来注册, 例如：监听角色血量属性的变化， 如果UI层注册这个事件，
     事件触发后就可以根据事件所附带的当前血量值来改变角色头顶的血条值。
     */
-    public static void fireOut(NET eventType, IKBEvent eventData)
+    public static void fireOut(KET eventType, IKBEvent eventData)
     {
         fire_(events_out, firedEvents_out, eventType, eventData);
     }
@@ -230,7 +230,7 @@ public class KBEvent
     渲染表现层抛出事件(in = render->kbe)
     通常由kbe插件层来注册， 例如：UI层点击登录， 此时需要触发一个事件给kbe插件层进行与服务端交互的处理。
     */
-    public static void fireIn(NET eventType, IKBEvent eventData)
+    public static void fireIn(KET eventType, IKBEvent eventData)
     {
         fire_(events_in, firedEvents_in, eventType, eventData);
     }
@@ -238,13 +238,13 @@ public class KBEvent
     /*
     触发kbe插件和渲染表现层都能够收到的事件
     */
-    public static void fireAll(NET eventType, IKBEvent eventData)
+    public static void fireAll(KET eventType, IKBEvent eventData)
     {
         fire_(events_in, firedEvents_in, eventType, eventData);
         fire_(events_out, firedEvents_out, eventType, eventData);
     }
 
-    private static void fire_(Dictionary<NET, List<KBEventlistener>> events, LinkedList<EventObj> firedEvents, NET eventType, IKBEvent eventData)
+    private static void fire_(Dictionary<KET, List<KBEventlistener>> events, LinkedList<EventObj> firedEvents, KET eventType, IKBEvent eventData)
     {
         monitor_Enter(events);
         List<KBEventlistener> lst = null;

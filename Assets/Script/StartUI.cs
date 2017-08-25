@@ -60,38 +60,28 @@ public class StartUI : MonoBehaviour
     void installEvents()
     {
         // common
-        KBEvent.registerOut(NET.onKicked, this, onKicked);
-        KBEvent.registerOut(NET.onDisconnected, this, onDisconnected);
-        KBEvent.registerOut(NET.onConnectionState, this, onConnectionState);
+        KBEvent.registerOut(KET.onKicked, this, onKicked);
+        KBEvent.registerOut(KET.onDisconnected, this, onDisconnected);
+        KBEvent.registerOut(KET.onConnectionState, this, onConnectionState);
 
         // login
-        // KBEngine.Event.registerOut("onLoginSuccessfully", this, "onLoginSuccessfully");
-        // KBEngine.Event.registerOut("onReloginBaseappFailed", this, "onReloginBaseappFailed");
-        // KBEngine.Event.registerOut("onReloginBaseappSuccessfully", this, "onReloginBaseappSuccessfully");
-        // KBEngine.Event.registerOut("onLoginBaseapp", this, "onLoginBaseapp");
-        // KBEngine.Event.registerOut("Loginapp_importClientMessages", this, "Loginapp_importClientMessages");
-        // KBEngine.Event.registerOut("Baseapp_importClientMessages", this, "Baseapp_importClientMessages");
-        // KBEngine.Event.registerOut("Baseapp_importClientEntityDef", this, "Baseapp_importClientEntityDef");
-        KBEvent.registerOut(NET.onCreateAccountResult, this, onCreateAccountResult);
-        KBEvent.registerOut(NET.onLoginFailed, this, onLoginFailed);
-        KBEvent.registerOut(NET.onVersionNotMatch, this, onVersionNotMatch);
-        KBEvent.registerOut(NET.onScriptVersionNotMatch, this, onScriptVersionNotMatch);
-        KBEvent.registerOut(NET.onLoginBaseappFailed, this, onLoginBaseappFailed);
-        KBEvent.registerOut(NET.onLoginSuccessfully, this, onLoginSuccessfully);
-        KBEvent.registerOut(NET.onReloginBaseappFailed, this, onReloginBaseappFailed);
-        KBEvent.registerOut(NET.onReloginBaseappSuccessfully, this, onReloginBaseappSuccessfully);
-        KBEvent.registerOut(NET.onLoginBaseapp, this, onLoginBaseapp);
-        KBEvent.registerOut(NET.Loginapp_importClientMessages, this, Loginapp_importClientMessages);
-        KBEvent.registerOut(NET.Baseapp_importClientMessages, this, Baseapp_importClientMessages);
-        KBEvent.registerOut(NET.Baseapp_importClientEntityDef, this, Baseapp_importClientEntityDef);
+        KBEvent.registerOut(KET.onCreateAccountResult, this, onCreateAccountResult);
+        KBEvent.registerOut(KET.onLoginFailed, this, onLoginFailed);
+        KBEvent.registerOut(KET.onVersionNotMatch, this, onVersionNotMatch);
+        KBEvent.registerOut(KET.onScriptVersionNotMatch, this, onScriptVersionNotMatch);
+        KBEvent.registerOut(KET.onLoginBaseappFailed, this, onLoginBaseappFailed);
+        KBEvent.registerOut(KET.onLoginSuccessfully, this, onLoginSuccessfully);
+        KBEvent.registerOut(KET.onReloginBaseappFailed, this, onReloginBaseappFailed);
+        KBEvent.registerOut(KET.onReloginBaseappSuccessfully, this, onReloginBaseappSuccessfully);
+        KBEvent.registerOut(KET.onLoginBaseapp, this, onLoginBaseapp);
+        KBEvent.registerOut(KET.Loginapp_importClientMessages, this, Loginapp_importClientMessages);
+        KBEvent.registerOut(KET.Baseapp_importClientMessages, this, Baseapp_importClientMessages);
+        KBEvent.registerOut(KET.Baseapp_importClientEntityDef, this, Baseapp_importClientEntityDef);
 
         // select-avatars(register by scripts)
-        //KBEngine.Event.registerOut("onReqAvatarList", this, "onReqAvatarList");
-        //KBEngine.Event.registerOut("onCreateAvatarResult", this, "onCreateAvatarResult");
-        //KBEngine.Event.registerOut("onRemoveAvatar", this, "onRemoveAvatar");
-        KBEvent.registerOut(NET.onReqAvatarList, this, onReqAvatarList);
-        KBEvent.registerOut(NET.onCreateAvatarResult, this, onCreateAvatarResult);
-        KBEvent.registerOut(NET.onRemoveAvatar, this, onRemoveAvatar);
+        KBEvent.registerOut(KET.onReqAvatarList, this, onReqAvatarList);
+        KBEvent.registerOut(KET.onCreateAvatarResult, this, onCreateAvatarResult);
+        KBEvent.registerOut(KET.onRemoveAvatar, this, onRemoveAvatar);
     }
 
     public void info(string s)
@@ -122,7 +112,7 @@ public class StartUI : MonoBehaviour
         eventData.username = sAccount;
         eventData.password = sPasswd;
         eventData.datas = System.Text.Encoding.UTF8.GetBytes("kbengine_unity3d_demo");
-        KBEvent.fireIn(NET.login, eventData);
+        KBEvent.fireIn(KET.login, eventData);
     }
 
     public void createAccount()

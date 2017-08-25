@@ -1,8 +1,8 @@
 ﻿
 /// <summary>
-/// net event type
+/// kbe event type
 /// </summary>
-public enum NET
+public enum KET
 {
     None,
     login,

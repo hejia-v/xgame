@@ -22,7 +22,11 @@ namespace KBEngine
             Event.registerIn("selectAvatarGame", this, "selectAvatarGame");
 
             // 触发登陆成功事件
-            Event.fireOut("onLoginSuccessfully", new object[] { KBEngineApp.app.entity_uuid, id, this });
+            KBS_LoginSuccess e = new KBS_LoginSuccess();
+            e.rndUUID = KBEngineApp.app.entity_uuid;
+            e.eid = id;
+            e.accountEntity = this;
+            KBEvent.fireOut(KET.onLoginSuccessfully, e);
 
             // 向服务端请求获得角色列表
             baseCall("reqAvatarList");
@@ -46,7 +50,11 @@ namespace KBEngine
             }
 
             // ui event
-            Event.fireOut("onCreateAvatarResult", new object[] { retcode, info, avatars });
+            KBS_CreateAvatarResult e = new KBS_CreateAvatarResult();
+            e.retcode = retcode;
+            e.info = info;
+            e.avatarList = avatars;
+            KBEvent.fireOut(KET.onCreateAvatarResult, e);
         }
 
         public void onRemoveAvatar(UInt64 dbid)
@@ -56,7 +64,10 @@ namespace KBEngine
             avatars.Remove(dbid);
 
             // ui event
-            Event.fireOut("onRemoveAvatar", new object[] { dbid, avatars });
+            KBS_RemoveAvatar e = new KBS_RemoveAvatar();
+            e.dbid = dbid;
+            e.avatarList = avatars;
+            KBEvent.fireOut(KET.onRemoveAvatar, e);
         }
 
         public void onReqAvatarList(Dictionary<string, object> infos)
@@ -75,7 +86,9 @@ namespace KBEngine
 
             // ui event
             Dictionary<UInt64, Dictionary<string, object>> avatarList = new Dictionary<ulong, Dictionary<string, object>>(avatars);
-            Event.fireOut("onReqAvatarList", new object[] { avatarList });
+            KBS_AvatarList e = new KBS_AvatarList();
+            e.avatarList = avatarList;
+            KBEvent.fireOut(KET.onReqAvatarList, e);
 
             if (listinfos.Count == 0)
                 return;
