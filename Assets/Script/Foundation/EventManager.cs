@@ -7,20 +7,20 @@ public class EventData
 
 }
 
-public delegate bool EventDelegate(EventType eventType, EventData eventData);
+public delegate bool EventDelegate(GEventType eventType, EventData eventData);
 
 class Eventlistener
 {
     public object obj = null;
-    public EventType eventType = EventType.None;
+    public GEventType eventType = GEventType.None;
     public EventDelegate funcDelegate = null;
 }
 
 public class EventManager
 {
-    static Dictionary<EventType, List<Eventlistener>> mListeners = new Dictionary<EventType, List<Eventlistener>>();
+    static Dictionary<GEventType, List<Eventlistener>> mListeners = new Dictionary<GEventType, List<Eventlistener>>();
 
-    public static void addListener(object obj, EventType eventType)
+    public static void addListener(object obj, GEventType eventType)
     {
         removeListener(obj, eventType);
 
@@ -50,7 +50,7 @@ public class EventManager
         lst.Add(listener);
     }
 
-    public static bool removeListener(object obj, EventType eventType)
+    public static bool removeListener(object obj, GEventType eventType)
     {
         List<Eventlistener> lst = null;
 
@@ -71,7 +71,7 @@ public class EventManager
         return false;
     }
 
-    public static void sendEvent(EventType eventType, EventData eventData)
+    public static void sendEvent(GEventType eventType, EventData eventData)
     {
         List<Eventlistener> lst = null;
 

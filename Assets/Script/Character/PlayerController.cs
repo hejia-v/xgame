@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour, IInputListener
         float animationSpeedPercent = ((running) ? 1 : .5f) * inputDir.magnitude;
         animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 
-        EventManager.sendEvent(EventType.PlayerMove, null);
+        EventManager.sendEvent(GEventType.PlayerMove, null);
         curSpeed = currentSpeed;
     }
 

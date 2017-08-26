@@ -13,15 +13,32 @@ public enum MainUIStatus
 
 public class StartUI : MonoBehaviour
 {
-    public MainUIStatus uiStatus = MainUIStatus.Login;
-
     Text mVersionLabel;
     Text mMessageLabel;
+    GameObject mLoginUI;
     InputField mAccountText;
     InputField mPasswordText;
 
     bool startRelogin = false;
     private Dictionary<UInt64, Dictionary<string, object>> ui_avatarList = null;
+
+    private MainUIStatus uiStatus = MainUIStatus.Login;
+    [ExposeProperty]
+    public MainUIStatus UIStatus
+    {
+        get
+        {
+            return uiStatus;
+        }
+        set
+        {
+            if (uiStatus != value)
+            {
+                onUIStatusChanged();
+            }
+            uiStatus = value;
+        }
+    }
 
     void Awake()
     {
@@ -35,13 +52,15 @@ public class StartUI : MonoBehaviour
 
         mVersionLabel = canvas.transform.Find("Version").GetComponent<Text>();
         mMessageLabel = canvas.transform.Find("Message").GetComponent<Text>();
-        mAccountText = canvas.transform.Find("Account").GetComponent<InputField>();
-        mPasswordText = canvas.transform.Find("Password").GetComponent<InputField>();
+        mLoginUI = canvas.transform.Find("LoginUI").gameObject;
 
-        Button loginBtn = canvas.transform.Find("BtnLogin").GetComponent<Button>();
+        mAccountText = mLoginUI.transform.Find("Account").GetComponent<InputField>();
+        mPasswordText = mLoginUI.transform.Find("Password").GetComponent<InputField>();
+
+        Button loginBtn = mLoginUI.transform.Find("BtnLogin").GetComponent<Button>();
         loginBtn.onClick.AddListener(this.login);
 
-        Button signupBtn = canvas.transform.Find("BtnSignup").GetComponent<Button>();
+        Button signupBtn = mLoginUI.transform.Find("BtnSignup").GetComponent<Button>();
         signupBtn.onClick.AddListener(this.createAccount);
 
         //SceneManager.LoadScene("login");
@@ -82,6 +101,11 @@ public class StartUI : MonoBehaviour
         KBEvent.registerOut(KET.onReqAvatarList, this, onReqAvatarList);
         KBEvent.registerOut(KET.onCreateAvatarResult, this, onCreateAvatarResult);
         KBEvent.registerOut(KET.onRemoveAvatar, this, onRemoveAvatar);
+    }
+
+    void onUIStatusChanged()
+    {
+        Debug.Log("[StartUI] onUIStatusChanged!");
     }
 
     public void info(string s)
@@ -127,7 +151,7 @@ public class StartUI : MonoBehaviour
         KES_Kicked data = (KES_Kicked)eventData;
         err("kick, disconnect!, reason=" + KBEngineApp.app.serverErr(data.failedcode));
         //SceneManager.LoadScene("login");
-        uiStatus = MainUIStatus.Login;
+        UIStatus = MainUIStatus.Login;
     }
 
     public void onDisconnected(IKBEvent eventData)
@@ -139,7 +163,7 @@ public class StartUI : MonoBehaviour
 
     public void onReloginBaseappTimer()
     {
-        if (uiStatus == MainUIStatus.Login)
+        if (UIStatus == MainUIStatus.Login)
         {
             err("disconnect! (你已掉线!)");
             return;
@@ -215,7 +239,7 @@ public class StartUI : MonoBehaviour
     {
         //KBS_LoginSuccess data = (KBS_LoginSuccess)eventData;
         info("login is successfully!(登陆成功!)");
-        uiStatus = MainUIStatus.SelAvatarUI;
+        UIStatus = MainUIStatus.SelAvatarUI;
 
         //Application.LoadLevel("selavatars");
     }

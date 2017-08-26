@@ -9,7 +9,7 @@ public enum TouchPriority
 }
 
 
-public enum EventType
+public enum GEventType
 {
     None,
     PlayerMove,
