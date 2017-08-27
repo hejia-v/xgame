@@ -16,11 +16,14 @@ public class StartUI : MonoBehaviour
     Text mVersionLabel;
     Text mMessageLabel;
     GameObject mLoginUI;
+    GameObject mSelAvatarUI;
     InputField mAccountText;
     InputField mPasswordText;
+    RectTransform mAvatarCardPrototype;
 
     bool startRelogin = false;
     private Dictionary<UInt64, Dictionary<string, object>> ui_avatarList = null;
+    private UInt64 selAvatarDBID = 0;
 
     private MainUIStatus uiStatus = MainUIStatus.Login;
     [ExposeProperty]
@@ -32,11 +35,12 @@ public class StartUI : MonoBehaviour
         }
         set
         {
-            if (uiStatus != value)
+            bool isChanged = uiStatus != value;
+            uiStatus = value;
+            if (isChanged)
             {
                 onUIStatusChanged();
             }
-            uiStatus = value;
         }
     }
 
@@ -53,6 +57,7 @@ public class StartUI : MonoBehaviour
         mVersionLabel = canvas.transform.Find("Version").GetComponent<Text>();
         mMessageLabel = canvas.transform.Find("Message").GetComponent<Text>();
         mLoginUI = canvas.transform.Find("LoginUI").gameObject;
+        mSelAvatarUI = canvas.transform.Find("SelAvatarUI").gameObject;
 
         mAccountText = mLoginUI.transform.Find("Account").GetComponent<InputField>();
         mPasswordText = mLoginUI.transform.Find("Password").GetComponent<InputField>();
@@ -63,6 +68,24 @@ public class StartUI : MonoBehaviour
         Button signupBtn = mLoginUI.transform.Find("BtnSignup").GetComponent<Button>();
         signupBtn.onClick.AddListener(this.createAccount);
 
+        Button removeAvatarBtn = mSelAvatarUI.transform.Find("BtnRemoveAvatar").GetComponent<Button>();
+        removeAvatarBtn.onClick.AddListener(this.RemoveAvatar);
+
+        Button createAvatarBtn = mSelAvatarUI.transform.Find("BtnCreateAvatar").GetComponent<Button>();
+        createAvatarBtn.onClick.AddListener(this.CreateAvatar);
+
+        Button enterGameBtn = mSelAvatarUI.transform.Find("BtnEnterGame").GetComponent<Button>();
+        enterGameBtn.onClick.AddListener(this.EnterGame);
+
+        mAvatarCardPrototype = mSelAvatarUI.transform.Find("AvatarCardPrototype").GetComponent<RectTransform>();
+        mAvatarCardPrototype.gameObject.SetActive(false);
+
+        string sAccount = PlayerPrefs.GetString("account", "");
+        string sPassword = PlayerPrefs.GetString("password", "");
+        mAccountText.text = sAccount;
+        mPasswordText.text = sPassword;
+
+        onUIStatusChanged();
         //SceneManager.LoadScene("login");
     }
 
@@ -106,6 +129,23 @@ public class StartUI : MonoBehaviour
     void onUIStatusChanged()
     {
         Debug.Log("[StartUI] onUIStatusChanged!");
+        switch (uiStatus)
+        {
+            case MainUIStatus.Login:
+                mLoginUI.SetActive(true);
+                mSelAvatarUI.SetActive(false);
+                break;
+            case MainUIStatus.SelAvatarUI:
+                mLoginUI.SetActive(false);
+                mSelAvatarUI.SetActive(true);
+                break;
+            case MainUIStatus.WorldUI:
+                mLoginUI.SetActive(false);
+                mSelAvatarUI.SetActive(false);
+                break;
+            default:
+                break;
+        }
     }
 
     public void info(string s)
@@ -130,6 +170,9 @@ public class StartUI : MonoBehaviour
             return;
         }
 
+        PlayerPrefs.SetString("account", sAccount);
+        PlayerPrefs.SetString("password", sPasswd);
+
         info("connect to server...(连接到服务端...)");
 
         KES_Login eventData = new KES_Login();
@@ -144,6 +187,21 @@ public class StartUI : MonoBehaviour
         info("connect to server...(连接到服务端...)");
 
         //KBEngine.Event.fireIn("createAccount", stringAccount, stringPasswd, System.Text.Encoding.UTF8.GetBytes("kbengine_unity3d_demo"));
+    }
+
+    public void RemoveAvatar()
+    {
+
+    }
+
+    public void CreateAvatar()
+    {
+
+    }
+
+    public void EnterGame()
+    {
+
     }
 
     public void onKicked(IKBEvent eventData)
@@ -241,7 +299,7 @@ public class StartUI : MonoBehaviour
         info("login is successfully!(登陆成功!)");
         UIStatus = MainUIStatus.SelAvatarUI;
 
-        //Application.LoadLevel("selavatars");
+        RefreshAvatarList();
     }
 
     public void onReloginBaseappFailed(IKBEvent eventData)
@@ -281,6 +339,7 @@ public class StartUI : MonoBehaviour
     {
         KBS_AvatarList data = (KBS_AvatarList)eventData;
         ui_avatarList = data.avatarList;
+        RefreshAvatarList();
     }
 
     public void onCreateAvatarResult(IKBEvent eventData)
@@ -311,5 +370,50 @@ public class StartUI : MonoBehaviour
         onReqAvatarList(listData);
     }
 
+    void RefreshAvatarList()
+    {
+        if (ui_avatarList == null || ui_avatarList.Count <= 0)
+        {
+            if (KBEngineApp.app.entity_type == "Account")
+            {
+                KBEngine.Account account = (KBEngine.Account)KBEngineApp.app.player();
+                if (account != null)
+                    ui_avatarList = new Dictionary<ulong, Dictionary<string, object>>(account.avatars);
+            }
+        }
 
+        if (ui_avatarList != null && ui_avatarList.Count > 0)
+        {
+            int idx = 0;
+            float startX = mAvatarCardPrototype.anchoredPosition.x;
+            float startY = mAvatarCardPrototype.anchoredPosition.y;
+            float itemDist = mAvatarCardPrototype.sizeDelta.y;
+            foreach (UInt64 dbid in ui_avatarList.Keys)
+            {
+                Dictionary<string, object> info = ui_avatarList[dbid];
+                //	Byte roleType = (Byte)info["roleType"];
+                string name = (string)info["name"];
+                UInt16 level = (UInt16)info["level"];
+                UInt64 idbid = (UInt64)info["dbid"];
+
+                var item1 = GameObject.Instantiate(Resources.Load<GameObject>("AvatarCard")) as GameObject;
+                //var item = GameObject.Instantiate(mAvatarCardPrototype) as RectTransform;
+                var item = item1.GetComponent<RectTransform>();
+
+                AvatarCardUI avatarCard = item1.GetComponent<AvatarCardUI>();
+                avatarCard.Init();
+                avatarCard.Name = name;
+                avatarCard.Level = level;
+                avatarCard.DBId = idbid;
+                avatarCard.Select = selAvatarDBID == idbid;
+
+                item.SetParent(mSelAvatarUI.transform, false);
+                item.name = "AvatarCard" + idx.ToString();
+                item.anchoredPosition = new Vector2(startX, startY - (itemDist + 10) * idx);
+                item.gameObject.SetActive(true);
+
+                idx++;
+            }
+        }
+    }
 }
