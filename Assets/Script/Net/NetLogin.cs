@@ -56,10 +56,26 @@ public struct KBS_CreateAvatarResult : IKBEvent
     public Dictionary<UInt64, Dictionary<string, object>> avatarList;
 }
 
-public struct KBS_RemoveAvatar : IKBEvent
+public struct KBS_RemoveAvatarResp : IKBEvent
 {
     public UInt64 dbid;
     public Dictionary<UInt64, Dictionary<string, object>> avatarList;
+}
+
+public struct KBS_CreateAvatar : IKBEvent
+{
+    public Byte roleType;
+    public string name;
+}
+
+public struct KBS_RemoveAvatar : IKBEvent
+{
+    public string name;
+}
+
+public struct KBS_EnterGame : IKBEvent
+{
+    public UInt64 dbid;
 }
 
 public struct KBS_ : IKBEvent

@@ -6,6 +6,10 @@ public enum KET
 {
     None,
     login,
+    createAccount,
+    reqCreateAvatar,
+    reqRemoveAvatar,
+    selectAvatarGame,
 
     // common
     onKicked,

@@ -17,9 +17,9 @@ namespace KBEngine
         public override void __init__()
         {
             // 注册事件
-            Event.registerIn("reqCreateAvatar", this, "reqCreateAvatar");
-            Event.registerIn("reqRemoveAvatar", this, "reqRemoveAvatar");
-            Event.registerIn("selectAvatarGame", this, "selectAvatarGame");
+            KBEvent.registerIn(KET.reqCreateAvatar, this, reqCreateAvatar);
+            KBEvent.registerIn(KET.reqRemoveAvatar, this, reqRemoveAvatar);
+            KBEvent.registerIn(KET.selectAvatarGame, this, selectAvatarGame);
 
             // 触发登陆成功事件
             KBS_LoginSuccess e = new KBS_LoginSuccess();
@@ -64,7 +64,7 @@ namespace KBEngine
             avatars.Remove(dbid);
 
             // ui event
-            KBS_RemoveAvatar e = new KBS_RemoveAvatar();
+            KBS_RemoveAvatarResp e = new KBS_RemoveAvatarResp();
             e.dbid = dbid;
             e.avatarList = avatars;
             KBEvent.fireOut(KET.onRemoveAvatar, e);
@@ -96,22 +96,25 @@ namespace KBEngine
             // selectAvatarGame(avatars.Keys.ToList()[0]);
         }
 
-        public void reqCreateAvatar(Byte roleType, string name)
+        public void reqCreateAvatar(IKBEvent eventData)
         {
-            Dbg.DEBUG_MSG("Account::reqCreateAvatar: roleType=" + roleType);
-            baseCall("reqCreateAvatar", roleType, name);
+            KBS_CreateAvatar data = (KBS_CreateAvatar)eventData;
+            Dbg.DEBUG_MSG("Account::reqCreateAvatar: roleType=" + data.roleType);
+            baseCall("reqCreateAvatar", data.roleType, data.name);
         }
 
-        public void reqRemoveAvatar(string name)
+        public void reqRemoveAvatar(IKBEvent eventData)
         {
-            Dbg.DEBUG_MSG("Account::reqRemoveAvatar: name=" + name);
-            baseCall("reqRemoveAvatar", name);
+            KBS_RemoveAvatar e = (KBS_RemoveAvatar)eventData;
+            Dbg.DEBUG_MSG("Account::reqRemoveAvatar: name=" + e.name);
+            baseCall("reqRemoveAvatar", e.name);
         }
 
-        public void selectAvatarGame(UInt64 dbid)
+        public void selectAvatarGame(IKBEvent eventData)
         {
-            Dbg.DEBUG_MSG("Account::selectAvatarGame: dbid=" + dbid);
-            baseCall("selectAvatarGame", dbid);
+            KBS_EnterGame e = (KBS_EnterGame)eventData;
+            Dbg.DEBUG_MSG("Account::selectAvatarGame: dbid=" + e.dbid);
+            baseCall("selectAvatarGame", e.dbid);
         }
     }
 }
