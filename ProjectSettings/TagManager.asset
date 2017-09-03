@@ -3,7 +3,30 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Action
+  - AutoCrouch
+  - Ragdoll
+  - Ignore Ragdoll
+  - Boss
+  - Enemy
+  - CompanionAI
+  - Weapon
+  - PlayerUI
+  - Collectable
+  - LookAt
+  - Interactable
+  - Dirt
+  - Wood
+  - Metal
+  - Concrete
+  - Glass
+  - Item
+  - Water
+  - LadderTrigger
+  - StepUp
+  - ClimbUp
+  - JumpOver
   layers:
   - Default
   - TransparentFX
@@ -13,16 +36,16 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - CompanionAI
+  - Triggers
+  - StopMove
+  - Action
+  - HeadTrack
+  - BodyPart
+  - ClimbWall
+  - Boss
   - 
   - 
   - 

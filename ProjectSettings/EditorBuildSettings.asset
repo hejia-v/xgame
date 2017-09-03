@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/AndroidTest.unity
-    guid: 866555c80b486b54d928c87b8c6c2fe2
   - enabled: 0
-    path: 
-    guid: c8ed8038df3b647b68e612bd6fde86e0
-  - enabled: 1
-    path: Assets/Kbedemo/Scenes/_scenes/world.unity
-    guid: 28f316b63b69c8c499309769b2c0efac
+    path: Assets/Invector-3rdPersonController/Melee Combat/DemoScenes/vMeleeCombat_DemoScene.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Invector-3rdPersonController/Melee Combat/DemoScenes/vMelee_GameOver.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Invector-3rdPersonController/Shooter/DemoScenes/vShooterMelee_DemoScene.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Invector-3rdPersonController/Basic Locomotion/DemoScenes/v3rdPersonController-Demo.unity
+    guid: 00000000000000000000000000000000
