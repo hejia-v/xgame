@@ -34,3 +34,16 @@ Meshes
 
 Its probably got a bunch of bugs and weird issues - feel free to help improve, fix up!
 
+# UnityAssetCleaner
+
+UnityAssetCleaner will remove unused assets, script and shader in your game and projects.
+
+how to use
+1. select menu/window/delete unused assets/unused by editor.
+2. editor lists unused assets from your game.
+    if you do not want to delete it, you can uncheck it. 
+3. select "Exclude from project"
+    export unused assets by unitypackage.
+
+please use “menu/window/delete unused assets/cache clear” in some time. sometimes work incorrectly if not cache clear.
+
