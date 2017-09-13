@@ -24,46 +24,44 @@ namespace Invector
         [HideInInspector]
         public OnRealoadGame OnReloadGame = new OnRealoadGame();
         [HideInInspector]
-	    public GameObject currentPlayer;
-	    private vThirdPersonController currentController;
+        public GameObject currentPlayer;
+        private vThirdPersonController currentController;
         public static vGameController instance;
         private GameObject oldPlayer;
 
         void Start()
-	    {
-		    if (instance == null)
-		    {
-			    instance = this;
-			    DontDestroyOnLoad(this.gameObject);
-			    this.gameObject.name = gameObject.name + " Instance";
-		    }
-		    else
-		    {
-			    Destroy(this.gameObject);
-			    return;
-		    }
-		    
-			#if UNITY_5_4_OR_NEWER
-            	SceneManager.sceneLoaded += OnLevelFinishedLoading;
-			#endif
-		    
+        {
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(this.gameObject);
+                this.gameObject.name = gameObject.name + " Instance";
+            }
+            else
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
+            SceneManager.sceneLoaded += OnLevelFinishedLoading;
+
             var player = GameObject.FindObjectOfType<vThirdPersonController>();
             if (player)
             {
-	            currentPlayer = player.gameObject;
-	            currentController = player;
+                currentPlayer = player.gameObject;
+                currentController = player;
                 player.onDead.AddListener(OnCharacterDead);
             }
-		    else if (currentPlayer == null && playerPrefab != null && spawnPoint != null)
+            else if (currentPlayer == null && playerPrefab != null && spawnPoint != null)
                 Spawn(spawnPoint);
         }
 
-	    public void OnCharacterDead(GameObject _gameObject)
-	    {
-		    oldPlayer = _gameObject;
-		    
+        public void OnCharacterDead(GameObject _gameObject)
+        {
+            oldPlayer = _gameObject;
+
             if (playerPrefab != null)
-	            StartCoroutine(Spawn());
+                StartCoroutine(Spawn());
             else
                 Invoke("ResetScene", respawnTimer);
         }
@@ -78,18 +76,18 @@ namespace Invector
                 {
                     DestroyPlayerComponents(oldPlayer);
                 }
-	            
+
                 currentPlayer = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
-	            currentController = currentPlayer.GetComponent<vThirdPersonController>();
+                currentController = currentPlayer.GetComponent<vThirdPersonController>();
                 currentController.onDead.AddListener(OnCharacterDead);
                 OnReloadGame.Invoke();
             }
         }
 
-	    public IEnumerator Spawn()
-	    {
-		    yield return new WaitForSeconds(respawnTimer);
-		    
+        public IEnumerator Spawn()
+        {
+            yield return new WaitForSeconds(respawnTimer);
+
             if (playerPrefab != null && spawnPoint != null)
             {
                 if (oldPlayer != null && destroyBodyAfterDead)
@@ -98,65 +96,40 @@ namespace Invector
                 {
                     DestroyPlayerComponents(oldPlayer);
                 }
-	            
-	            yield return new WaitForEndOfFrame();
-	            
+
+                yield return new WaitForEndOfFrame();
+
                 currentPlayer = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
-	            currentController = currentPlayer.GetComponent<vThirdPersonController>();
-	            currentController.onDead.AddListener(OnCharacterDead);
-	            
+                currentController = currentPlayer.GetComponent<vThirdPersonController>();
+                currentController.onDead.AddListener(OnCharacterDead);
+
                 OnReloadGame.Invoke();
             }
         }
-	    
-		#if UNITY_5_4_OR_NEWER
+
         void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
-	    {
-	    	if(currentController.currentHealth > 0) return;
-	    	
-	    	OnReloadGame.Invoke();
-	    	
-		    var player = GameObject.FindObjectOfType<vThirdPersonController>();
-		    if (player)
-		    {
-			    currentPlayer = player.gameObject;
-			    currentController = player;
-			    player.onDead.AddListener(OnCharacterDead);
-		    }
-		    else if (currentPlayer == null && playerPrefab != null && spawnPoint != null)
-			    Spawn(spawnPoint);
-	    }
-	    
-		#else
-	    
-        public void OnLevelWasLoaded(int level)
         {
-	    	if(currentController != null && currentController.currentHealth > 0) return;
-	    
-	      	OnReloadGame.Invoke();
-	    
-		    var player = GameObject.FindObjectOfType<vThirdPersonController>();
-		    if (player)
-		    {
-			    currentPlayer = player.gameObject;
-	    		currentController = player;
-			    player.onDead.AddListener(OnCharacterDead);
-		    }
-		    else if (currentPlayer == null && playerPrefab != null && spawnPoint != null)
-			    Spawn(spawnPoint);
+            if (currentController.currentHealth > 0) return;
+
+            OnReloadGame.Invoke();
+
+            var player = GameObject.FindObjectOfType<vThirdPersonController>();
+            if (player)
+            {
+                currentPlayer = player.gameObject;
+                currentController = player;
+                player.onDead.AddListener(OnCharacterDead);
+            }
+            else if (currentPlayer == null && playerPrefab != null && spawnPoint != null)
+                Spawn(spawnPoint);
         }
-		#endif
 
         public void ResetScene()
         {
             DestroyPlayerComponents(oldPlayer);
-            #if UNITY_5_3_OR_NEWER
             var scene = SceneManager.GetActiveScene();
-            	SceneManager.LoadScene(scene.name);
-			#else
-            	Application.LoadLevel(Application.loadedLevel);
-			#endif
-	        
+            SceneManager.LoadScene(scene.name);
+
             if (oldPlayer && destroyBodyAfterDead)
                 Destroy(oldPlayer);
         }

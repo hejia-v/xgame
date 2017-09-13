@@ -35,7 +35,7 @@ public class vThirdPersonCameraEditor : Editor
                             tpCamera.CameraStateList.tpCameraStates[tpCamera.indexList].lookPoints[i].eulerAngle = tpCamera.transform.eulerAngles;
                             if (tpCamera.CameraStateList.tpCameraStates[tpCamera.indexList].lookPoints[indexSelected].freeRotation)
                             {
-                                Handles.SphereCap(0, tpCamera.CameraStateList.tpCameraStates[tpCamera.indexList].lookPoints[i].eulerAngle, Quaternion.identity, 0.5f);
+                                Handles.SphereHandleCap(0, tpCamera.CameraStateList.tpCameraStates[tpCamera.indexList].lookPoints[i].eulerAngle, Quaternion.identity, 0.5f, EventType.Layout);
                             }
                             else
                             {
@@ -43,7 +43,7 @@ public class vThirdPersonCameraEditor : Editor
                                 tpCamera.target.position);
                             }
                         }
-                        else if (Handles.Button(tpCamera.CameraStateList.tpCameraStates[tpCamera.indexList].lookPoints[i].positionPoint, Quaternion.identity, 0.5f, 0.3f, Handles.SphereCap))
+                        else if (Handles.Button(tpCamera.CameraStateList.tpCameraStates[tpCamera.indexList].lookPoints[i].positionPoint, Quaternion.identity, 0.5f, 0.3f, Handles.SphereHandleCap))
                         {
                             indexSelected = i;
                             tpCamera.indexLookPoint = i;

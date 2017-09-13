@@ -5,27 +5,29 @@ using Invector.CharacterController;
 using System;
 using System.Collections.Generic;
 
-public class vHUDController : MonoBehaviour 
+public class vHUDController : MonoBehaviour
 {
     #region General Variables
 
     #region Health/Stamina Variables
     [Header("Health/Stamina")]
-	public Slider healthSlider;
-	public Slider staminaSlider;
-	[Header("DamageHUD")]
-	public Image damageImage;
-	public float flashSpeed = 5f;
-	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);   
-	[HideInInspector] public bool damaged;
+    public Slider healthSlider;
+    public Slider staminaSlider;
+    [Header("DamageHUD")]
+    public Image damageImage;
+    public float flashSpeed = 5f;
+    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    [HideInInspector]
+    public bool damaged;
     #endregion  
 
     #region Display Controls Variables
     [Header("Controls Display")]
-    [HideInInspector] public bool controllerInput;
     public Image displayControls;
     public Sprite joystickControls;
     public Sprite keyboardControls;
+    [HideInInspector]
+    public bool controllerInput;
     #endregion
 
     #region Debug Info Variables
@@ -61,7 +63,7 @@ public class vHUDController : MonoBehaviour
     }
 
     void Start()
-    {        
+    {
         InitFadeText();
         if (debugPanel != null)
             debugText = debugPanel.GetComponentInChildren<Text>();
@@ -70,7 +72,7 @@ public class vHUDController : MonoBehaviour
     public void Init(vThirdPersonController cc)
     {
         cc.onDead.AddListener(OnDead);
-        cc.onReceiveDamage.AddListener(EnableDamageSprite);       
+        cc.onReceiveDamage.AddListener(EnableDamageSprite);
         damageImage.color = new Color(0f, 0f, 0f, 0f);
     }
 
@@ -127,7 +129,7 @@ public class vHUDController : MonoBehaviour
 
     void UpdateSliders(vThirdPersonController cc)
     {
-        if (cc.maxHealth!= healthSlider.maxValue)
+        if (cc.maxHealth != healthSlider.maxValue)
         {
             healthSlider.maxValue = Mathf.Lerp(healthSlider.maxValue, cc.maxHealth, 2f * Time.fixedDeltaTime);
             healthSlider.onValueChanged.Invoke(healthSlider.value);
@@ -148,14 +150,14 @@ public class vHUDController : MonoBehaviour
             damaged = false;
             if (damageImage != null)
                 damageImage.color = flashColour;
-        }        
+        }
         else if (damageImage != null)
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
     }
 
     public void EnableDamageSprite(vDamage damage)
-    {       
-        if (damageImage != null)       
+    {
+        if (damageImage != null)
             damageImage.enabled = true;
         damaged = true;
     }
@@ -174,20 +176,20 @@ public class vHUDController : MonoBehaviour
             if (debugPanel != null && debugPanel.activeSelf)
                 debugPanel.SetActive(false);
         }
-    }    
-    
+    }
+
     void ChangeInputDisplay()
-	{
-		#if MOBILE_INPUT
-		displayControls.enabled = false;
-		#else
+    {
+#if MOBILE_INPUT
+        displayControls.enabled = false;
+#else
 		if(controllerInput)		
 			displayControls.sprite = joystickControls;		
 		else		
 			displayControls.sprite = keyboardControls;
-		#endif
-	}
-    
+#endif
+    }
+
     void InitFadeText()
     {
         if (fadeText != null)
@@ -199,50 +201,50 @@ public class vHUDController : MonoBehaviour
         else
             Debug.Log("Please assign a Text object on the field Fade Text");
     }
-	
-	void FadeEffect()
-	{
-		if(fadeText != null)
-		{
-			if(fade)
-			{
-				fadeText.color = Color.Lerp(endColor, startColor, timer);
-				
-				if(timer < 1)			
-					timer += Time.deltaTime/fadeDuration;
-				
-				if(fadeText.color.a >= 1)
-				{			
-					fade = false;
-					timer = 0f;
-				}
-			}
-			else
-			{
-				if(fadeText.color.a >= 1)
-					durationTimer += Time.deltaTime;
-				
-				if(durationTimer >= textDuration)
-				{
-					fadeText.color = Color.Lerp(startColor, endColor, timer);
-					if(timer < 1)			
-						timer += Time.deltaTime/fadeDuration;
-				}
-			}
-		}
-	}
-	
-	public void FadeText(string textToFade, float textTime, float fadeTime)
-	{
-		if(fadeText != null && !fade)
-		{            
-			fadeText.text = textToFade; 	
-			textDuration = textTime;	
-			fadeDuration = fadeTime;
-			durationTimer = 0f;
-			timer = 0f;	
-			fade = true;
-		}		
-	}    
+
+    void FadeEffect()
+    {
+        if (fadeText != null)
+        {
+            if (fade)
+            {
+                fadeText.color = Color.Lerp(endColor, startColor, timer);
+
+                if (timer < 1)
+                    timer += Time.deltaTime / fadeDuration;
+
+                if (fadeText.color.a >= 1)
+                {
+                    fade = false;
+                    timer = 0f;
+                }
+            }
+            else
+            {
+                if (fadeText.color.a >= 1)
+                    durationTimer += Time.deltaTime;
+
+                if (durationTimer >= textDuration)
+                {
+                    fadeText.color = Color.Lerp(startColor, endColor, timer);
+                    if (timer < 1)
+                        timer += Time.deltaTime / fadeDuration;
+                }
+            }
+        }
+    }
+
+    public void FadeText(string textToFade, float textTime, float fadeTime)
+    {
+        if (fadeText != null && !fade)
+        {
+            fadeText.text = textToFade;
+            textDuration = textTime;
+            fadeDuration = fadeTime;
+            durationTimer = 0f;
+            timer = 0f;
+            fade = true;
+        }
+    }
 
 }
