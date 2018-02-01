@@ -1,0 +1,58 @@
+# ---------------[ Unity generated ]------------------ #
+/Temp
+/obj
+/UnityGenerated
+/Library
+
+# ----[ Visual Studio / MonoDevelop generated ]------- #
+
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
+.vs
+
+# -------------[ OS generated ]------------------------ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# *.meta
+**/__pycache__
+*.pyc
+*.pyo
+native/build
+native/xpy/xtest
+*.obj
+*.log
+*.tlog
+**/PCbuild/obj
+**/PCbuild/amd64
+**/Python-3.6.0/externals
+*.VC.db
+*~$*
+**/sharp/obj
+**/Plugins/x86_64
+
+# ------------ [ project ] -------------- #
+/deploy/unity_deploy_log*
+/platform/android/unityplayer
+/proj.android-studio/unityplayer
+/deploy/.vscode
+/.vscode
+*/.idea
+*.iml
+/Assets/Trash
+/Assets/Trash.meta
